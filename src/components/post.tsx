@@ -1,36 +1,41 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import DeletePost from "./deletePost";
 
-type Props = {
-  title: string | number;
-  footer?: JSX.Element;
-  onPostClick?: (index: number, name: string) => void;
-};
+type Props = {};
+export interface IPost {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
 
 export default function Post(props: Props) {
-  const { title, footer, onPostClick } = props;
+  const [posts, setPosts] = useState<IPost[]>([]);
 
-  const [biki, setBiki] = useState("Anish");
-  const numbers = [1, 2, 3, 4, 5];
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => {
+        setPosts(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      })
+      .finally(() => {});
+  }, []);
+
   return (
-    <div
-      onClick={() => {
-        setBiki("Hero");
-        if (onPostClick) onPostClick(12, "nischit");
-      }}
-    >
-      {title} {footer}
-      {biki}
-      {biki === "Hero" ? <>BIKI is HERO</> : <></>}
-      {numbers.map((number) => {
-        return <h5 key={number}>{number}</h5>;
+    <div>
+      {posts.map((post) => {
+        return (
+          <div key={post.id}>
+            <h6>{post.title}</h6>
+            <p>{post.body}</p>
+            <DeletePost post={post} setPosts={setPosts}></DeletePost>
+          </div>
+        );
       })}
-      <button
-        onClick={(e) => {
-          console.log("I am clicked");
-        }}
-      >
-        Click me
-      </button>
     </div>
   );
 }

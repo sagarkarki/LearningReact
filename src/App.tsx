@@ -1,20 +1,12 @@
 import "./App.css";
+import CreatePost from "./components/createPost";
 import Post from "./components/post";
 
 function App() {
   return (
     <div className="App">
-      <Post
-        title="Hello I am post"
-        footer={
-          <>
-            <div className="footer">I am the footer</div>
-          </>
-        }
-        onPostClick={(index, name) => {
-          console.log(index, name);
-        }}
-      ></Post>
+      <CreatePost></CreatePost>
+      <Post></Post>
     </div>
   );
 }

@@ -1,12 +1,12 @@
 import "./App.css";
 import CreatePost from "./components/createPost";
 import Post from "./components/post";
+import Todo from "./components/todo/todo";
 
 function App() {
   return (
     <div className="App">
-      <CreatePost></CreatePost>
-      <Post></Post>
+      <Todo/>
     </div>
   );
 }

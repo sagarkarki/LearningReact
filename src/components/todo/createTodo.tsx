@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { TodoT } from "./todo";
+import { useTodoContext } from "./todoProvider";
 
 type Inputs = {
   title: string;
@@ -14,7 +15,8 @@ export default function CreateTodo(props: CreateTodoProps) {
   const { onTodoCreate } = props;
 
   const [isLoading, setLoader] = useState(false);
-
+  const { todos } = useTodoContext();
+  console.log("Todos : ", todos);
   const {
     register,
     handleSubmit,
